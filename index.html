@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ahmed Wael Fekry</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Montserrat,sans-serif;background:#222;color:white}
+button{font-family:inherit;cursor:pointer}
+
+.hero{
+ min-height:100vh;height:100svh;position:relative;
+ overflow:hidden;display:flex;align-items:center;
+ justify-content:center;
+ background:radial-gradient(ellipse at 50% 40%,#777,#333 55%,#151515);
+ perspective:1000px;
+}
+
+nav{
+ position:absolute;top:15px;left:0;width:100%;
+ display:flex;justify-content:center;gap:8px;
+ flex-wrap:wrap;padding:10px;z-index:10;
+}
+
+nav button{
+ color:white;background:#222b;border:1px solid #aaa;
+ border-radius:25px;padding:10px 14px;font-size:12px;
+ backdrop-filter:blur(10px);
+}
+nav button:hover{background:white;color:#222}
+
+.big-name{
+ position:absolute;z-index:1;top:43%;left:50%;
+ transform:translate(-50%,-50%);
+ font-size:clamp(85px,19vw,230px);
+ font-weight:900;letter-spacing:4px;
+ white-space:nowrap;color:#ddd;
+ text-shadow:0 12px 30px #000;
+}
+
+.photo-wrap{
+ position:absolute;z-index:2;bottom:0;height:84%;width:100%;
+ display:flex;justify-content:center;align-items:flex-end;
+ transform-style:preserve-3d;will-change:transform;
+ transition:transform .12s ease-out;pointer-events:none;
+}
+
+.photo-wrap img{
+ height:100%;width:100%;object-fit:contain;
+ object-position:center bottom;
+ filter:drop-shadow(0 20px 25px #0009);
+}
+
+.hero-info{
+ position:absolute;z-index:4;bottom:22px;width:100%;
+ text-align:center;text-shadow:0 3px 12px #000;
+ padding:10px;pointer-events:none;
+}
+.hero-info h1{font-size:clamp(23px,5vw,43px);font-weight:900}
+.hero-info p{font-size:11px;letter-spacing:3px;margin-top:8px}
+
+.motion-btn{
+ position:absolute;z-index:10;bottom:115px;right:15px;
+ background:#ffffff25;color:white;border:1px solid #ddd;
+ padding:11px 14px;border-radius:25px;font-size:11px;
+}
+
+.info{
+ background:linear-gradient(135deg,#ccc,#888);
+ color:#222;text-align:center;padding:55px 18px;
+}
+.info h2{font-size:28px}
+.info>p{margin-top:10px;color:#444}
+
+.cards{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:13px;max-width:600px;margin:30px auto;
+}
+.card-btn{
+ padding:22px 10px;border:1px solid #eee;
+ border-radius:17px;background:#252525;color:white;
+ font-size:15px;box-shadow:0 8px 18px #0003;
+ transition:.25s;
+}
+.card-btn:hover{transform:translateY(-5px);background:#555}
+.card-btn span{display:block;font-size:26px;margin-bottom:10px}
+
+.modal{
+ display:none;position:fixed;inset:0;z-index:100;
+ background:#000c;align-items:center;justify-content:center;
+ padding:18px;
+}
+.modal.show{display:flex}
+
+.modal-content{
+ position:relative;width:100%;max-width:500px;
+ max-height:85vh;overflow-y:auto;
+ background:linear-gradient(145deg,#555,#222);
+ color:white;border:1px solid #999;
+ border-radius:22px;padding:35px 23px;
+ text-align:center;box-shadow:0 20px 60px #0009;
+ animation:pop .3s ease;
+}
+
+@keyframes pop{
+ from{opacity:0;transform:scale(.88)}
+ to{opacity:1;transform:scale(1)}
+}
+
+.close{
+ position:absolute;top:12px;right:16px;
+ background:none;border:0;color:white;font-size:28px;
+}
+.modal-content h2{margin-bottom:20px}
+.modal-content p{line-height:2;margin:8px 0;color:#eee}
+
+.friend-img{
+ width:100%;max-width:330px;
+ max-height:430px;object-fit:contain;
+ border-radius:18px;border:3px solid silver;
+ box-shadow:0 10px 30px #0008;
+ margin:12px 0 20px;
+}
+
+footer{
+ text-align:center;padding:23px;
+ background:#111;color:#aaa;font-size:12px;
+}
+
+@media(max-width:600px){
+ .big-name{font-size:19vw;letter-spacing:1px}
+ .photo-wrap{height:78%}
+ nav{gap:6px}
+ nav button{padding:9px 10px;font-size:10px}
+ .motion-btn{bottom:105px}
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero" id="hero">
+
+<nav>
+ <button onclick="openModal('about')">👤 About</button>
+ <button onclick="openModal('skills')">💻 Skills</button>
+ <button onclick="openModal('interests')">⚽ Interests</button>
+ <button onclick="openModal('personal')">🎂 Age</button>
+ <button onclick="openModal('friend')">👬 My Friend</button>
+</nav>
+
+<div class="big-name">AHMED</div>
+
+<div class="photo-wrap" id="photo">
+ <img src="https://i.ibb.co/WvX5m23F/21667-removebg-preview.png"
+ alt="Ahmed Wael Fekry">
+</div>
+
+<div class="hero-info">
+ <h1>AHMED WAEL FEKRY</h1>
+ <p>COMPUTER SCIENCE STUDENT</p>
+</div>
+
+<button class="motion-btn" id="motionBtn" onclick="enableMotion()">
+ ✨ Activate 3D Motion
+</button>
+
+</section>
+
+<section class="info">
+ <h2>DISCOVER MY WORLD</h2>
+ <p>Explore my personal information</p>
+
+ <div class="cards">
+  <button class="card-btn" onclick="openModal('about')">
+   <span>👤</span>About Me
+  </button>
+
+  <button class="card-btn" onclick="openModal('skills')">
+   <span>💻</span>My Skills
+  </button>
+
+  <button class="card-btn" onclick="openModal('interests')">
+   <span>⚽</span>My Interests
+  </button>
+
+  <button class="card-btn" onclick="openModal('personal')">
+   <span>🎂</span>Personal Info
+  </button>
+
+  <button class="card-btn" onclick="openModal('friend')" style="grid-column:1/-1">
+   <span>👬</span>My Best Friend
+  </button>
+ </div>
+</section>
+
+<!-- ABOUT -->
+<div class="modal" id="about" onclick="outsideClose(event)">
+ <div class="modal-content">
+  <button class="close" onclick="closeModal('about')">×</button>
+  <h2>👋 About Me</h2>
+  <p>My name is Ahmed Wael Fekry.</p>
+  <p>I'm a Computer Science student.</p>
+  <p>I love technology, programming and learning new things.</p>
+  <p>My dream is to become a professional Backend Developer.</p>
+ </div>
+</div>
+
+<!-- SKILLS -->
+<div class="modal" id="skills" onclick="outsideClose(event)">
+ <div class="modal-content">
+  <button class="close" onclick="closeModal('skills')">×</button>
+  <h2>💻 My Skills &amp; Goals</h2>
+  <p>⌨️ Learning C# programming</p>
+  <p>🗄️ Interested in databases</p>
+  <p>🌐 Interested in Backend Development</p>
+  <p>🚀 Building my programming knowledge step by step</p>
+ </div>
+</div>
+
+<!-- INTERESTS -->
+<div class="modal" id="interests" onclick="outsideClose(event)">
+ <div class="modal-content">
+  <button class="close" onclick="closeModal('interests')">×</button>
+  <h2>⚽ My Interests</h2>
+  <p>💻 Programming &amp; Technology</p>
+  <p>⚽ Football</p>
+  <p>🎮 Gaming</p>
+  <p>🎯 Learning new skills</p>
+ </div>
+</div>
+
+<!-- PERSONAL -->
+<div class="modal" id="personal" onclick="outsideClose(event)">
+ <div class="modal-content">
+  <button class="close" onclick="closeModal('personal')">×</button>
+  <h2>🎂 Personal Information</h2>
+  <p>👤 Ahmed Wael Fekry</p>
+  <p>🎂 18 Years Old</p>
+  <p>🎓 Computer Science Student</p>
+  <p>💻 Future Backend Developer</p>
+ </div>
+</div>
+
+<!-- MY FRIEND -->
+<div class="modal" id="friend" onclick="outsideClose(event)">
+ <div class="modal-content">
+  <button class="close" onclick="closeModal('friend')">×</button>
+
+  <div style="font-size:30px;margin-bottom:10px">👬</div>
+  <h2>My Best Friend</h2>
+
+  <img class="friend-img"
+   src="https://i.ibb.co/PZ5zYpjz/IMG-20261110-145549-075.jpg"
+   alt="My Friend">
+
+  <h2>My Friend ❤️</h2>
+  <p>Good friends make life more beautiful.</p>
+  <p>الأصحاب الجدعان رزق، وأجمل حاجة إن يكون عندك صاحب تقدر تعتمد عليه ❤️</p>
+ </div>
+</div>
+
+<footer>
+ © 2026 Ahmed Wael Fekry ❤️
+</footer>
+
+<script>
+function openModal(id){
+ document.querySelectorAll('.modal').forEach(m=>{
+  m.classList.remove('show');
+ });
+ document.getElementById(id).classList.add('show');
+ document.body.style.overflow='hidden';
+}
+
+function closeModal(id){
+ document.getElementById(id).classList.remove('show');
+ document.body.style.overflow='';
+}
+
+function outsideClose(event){
+ if(event.target.classList.contains('modal')){
+  event.target.classList.remove('show');
+  document.body.style.overflow='';
+ }
+}
+
+document.addEventListener('keydown',function(e){
+ if(e.key==='Escape'){
+  document.querySelectorAll('.modal').forEach(m=>{
+   m.classList.remove('show');
+  });
+  document.body.style.overflow='';
+ }
+});
+
+const photo=document.getElementById('photo');
+const hero=document.getElementById('hero');
+
+hero.addEventListener('pointermove',function(e){
+ if(e.pointerType==='touch')return;
+
+ const x=e.clientX/window.innerWidth-.5;
+ const y=e.clientY/window.innerHeight-.5;
+
+ photo.style.transform=
+ `translate3d(${x*30}px,${y*25}px,35px)
+ rotateY(${x*10}deg) rotateX(${-y*8}deg)`;
+});
+
+hero.addEventListener('pointerleave',function(){
+ photo.style.transform='';
+});
+
+let motionEnabled=false;
+
+async function enableMotion(){
+ const btn=document.getElementById('motionBtn');
+
+ if(!window.DeviceOrientationEvent){
+  btn.textContent='Motion not supported';
+  return;
+ }
+
+ try{
+  if(typeof DeviceOrientationEvent.requestPermission==='function'){
+   const permission=await DeviceOrientationEvent.requestPermission();
+   if(permission!=='granted'){
+    btn.textContent='Motion permission denied';
+    return;
+   }
+  }
+
+  if(motionEnabled)return;
+  motionEnabled=true;
+  btn.textContent='✨ 3D Motion Enabled';
+
+  window.addEventListener('deviceorientation',function(e){
+   if(e.gamma===null||e.beta===null)return;
+
+   const x=Math.max(-20,Math.min(20,e.gamma));
+   const y=Math.max(-20,Math.min(20,e.beta-45));
+
+   photo.style.transform=
+   `translate3d(${x*1.3}px,${-y*1.2}px,40px)
+   rotateY(${x/2}deg) rotateX(${y/3}deg)`;
+  });
+
+ }catch(error){
+  btn.textContent='Motion unavailable';
+ }
+}
+</script>
+
+</body>
+</html>
