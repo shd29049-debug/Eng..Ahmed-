@@ -1,378 +1,1104 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ahmed Wael Fekry</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090c">
+  <meta name="description" content="Ahmed Wael Fekry — Computer Science student learning C# and Backend Development.">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Ahmed Wael Fekry | Portfolio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08090c;
+      --surface: #111319;
+      --surface-2: #171a22;
+      --text: #f4f4f5;
+      --muted: #9297a3;
+      --silver: #c6cbd4;
+      --line: rgba(255,255,255,.10);
+      --accent: #b9c1ce;
+      --radius: 22px;
+      --max: 1160px;
+    }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Montserrat,sans-serif;background:#222;color:white}
-button{font-family:inherit;cursor:pointer}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-.hero{
- min-height:100vh;height:100svh;position:relative;
- overflow:hidden;display:flex;align-items:center;
- justify-content:center;
- background:radial-gradient(ellipse at 50% 40%,#777,#333 55%,#151515);
- perspective:1000px;
-}
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
 
-nav{
- position:absolute;top:15px;left:0;width:100%;
- display:flex;justify-content:center;gap:8px;
- flex-wrap:wrap;padding:10px;z-index:10;
-}
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-nav button{
- color:white;background:#222b;border:1px solid #aaa;
- border-radius:25px;padding:10px 14px;font-size:12px;
- backdrop-filter:blur(10px);
-}
-nav button:hover{background:white;color:#222}
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(150,160,180,.12), transparent 28%),
+        radial-gradient(circle at 85% 55%, rgba(100,110,130,.10), transparent 30%),
+        linear-gradient(145deg, #08090c, #0d0f15 55%, #08090c);
+    }
 
-.big-name{
- position:absolute;z-index:1;top:43%;left:50%;
- transform:translate(-50%,-50%);
- font-size:clamp(85px,19vw,230px);
- font-weight:900;letter-spacing:4px;
- white-space:nowrap;color:#ddd;
- text-shadow:0 12px 30px #000;
-}
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
 
-.photo-wrap{
- position:absolute;z-index:2;bottom:0;height:84%;width:100%;
- display:flex;justify-content:center;align-items:flex-end;
- transform-style:preserve-3d;will-change:transform;
- transition:transform .12s ease-out;pointer-events:none;
-}
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: auto;
+    }
 
-.photo-wrap img{
- height:100%;width:100%;object-fit:contain;
- object-position:center bottom;
- filter:drop-shadow(0 20px 25px #0009);
-}
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .035;
+      z-index: 10;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+    }
 
-.hero-info{
- position:absolute;z-index:4;bottom:22px;width:100%;
- text-align:center;text-shadow:0 3px 12px #000;
- padding:10px;pointer-events:none;
-}
-.hero-info h1{font-size:clamp(23px,5vw,43px);font-weight:900}
-.hero-info p{font-size:11px;letter-spacing:3px;margin-top:8px}
+    /* Navigation */
 
-.motion-btn{
- position:absolute;z-index:10;bottom:115px;right:15px;
- background:#ffffff25;color:white;border:1px solid #ddd;
- padding:11px 14px;border-radius:25px;font-size:11px;
-}
+    .navbar {
+      position: fixed;
+      top: 15px;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+    }
 
-.info{
- background:linear-gradient(135deg,#ccc,#888);
- color:#222;text-align:center;padding:55px 18px;
-}
-.info h2{font-size:28px}
-.info>p{margin-top:10px;color:#444}
+    .nav-inner {
+      width: min(var(--max), calc(100% - 32px));
+      margin: auto;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(15,17,23,.78);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
 
-.cards{
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
- gap:13px;max-width:600px;margin:30px auto;
-}
-.card-btn{
- padding:22px 10px;border:1px solid #eee;
- border-radius:17px;background:#252525;color:white;
- font-size:15px;box-shadow:0 8px 18px #0003;
- transition:.25s;
-}
-.card-btn:hover{transform:translateY(-5px);background:#555}
-.card-btn span{display:block;font-size:26px;margin-bottom:10px}
+    .logo {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
 
-.modal{
- display:none;position:fixed;inset:0;z-index:100;
- background:#000c;align-items:center;justify-content:center;
- padding:18px;
-}
-.modal.show{display:flex}
+    .logo span { color: var(--silver); }
 
-.modal-content{
- position:relative;width:100%;max-width:500px;
- max-height:85vh;overflow-y:auto;
- background:linear-gradient(145deg,#555,#222);
- color:white;border:1px solid #999;
- border-radius:22px;padding:35px 23px;
- text-align:center;box-shadow:0 20px 60px #0009;
- animation:pop .3s ease;
-}
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      list-style: none;
+    }
 
-@keyframes pop{
- from{opacity:0;transform:scale(.88)}
- to{opacity:1;transform:scale(1)}
-}
+    .nav-links a {
+      color: var(--muted);
+      font-size: 13px;
+      transition: .25s;
+    }
 
-.close{
- position:absolute;top:12px;right:16px;
- background:none;border:0;color:white;font-size:28px;
-}
-.modal-content h2{margin-bottom:20px}
-.modal-content p{line-height:2;margin:8px 0;color:#eee}
+    .nav-links a:hover { color: white; }
 
-.friend-gallery{
- display:grid;
- grid-template-columns:repeat(2,minmax(0,1fr));
- gap:12px;
- margin:15px 0 22px;
-}
+    .nav-cta {
+      padding: 9px 16px;
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 30px;
+      color: white !important;
+    }
 
-.friend-img{
- width:100%;
- height:260px;
- object-fit:cover;
- border-radius:15px;
- border:3px solid silver;
- box-shadow:0 10px 25px #0008;
-}
+    .menu-btn {
+      display: none;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: white;
+      border-radius: 10px;
+      padding: 7px 11px;
+      cursor: pointer;
+    }
 
-footer{
- text-align:center;padding:23px;
- background:#111;color:#aaa;font-size:12px;
-}
+    /* Hero */
 
-@media(max-width:600px){
- .big-name{font-size:19vw;letter-spacing:1px}
- .photo-wrap{height:78%}
- nav{gap:6px}
- nav button{padding:9px 10px;font-size:10px}
- .motion-btn{bottom:105px}
- .friend-gallery{gap:8px}
- .friend-img{height:190px}
-}
-</style>
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 130px 0 75px;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 45px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--silver);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 25px;
+      height: 1px;
+      background: var(--silver);
+    }
+
+    .hero h1 {
+      font-size: clamp(43px, 6.5vw, 82px);
+      line-height: .98;
+      letter-spacing: -4px;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(230,235,245,.65);
+    }
+
+    .hero-description {
+      max-width: 490px;
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 13px 21px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 700;
+      transition: .3s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #e6e8ed;
+      color: #101116;
+      border-color: #e6e8ed;
+    }
+
+    .btn-primary:hover {
+      background: white;
+      transform: translateY(-3px);
+    }
+
+    .btn-outline {
+      color: white;
+      background: rgba(255,255,255,.03);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,.1);
+      transform: translateY(-3px);
+    }
+
+    .hero-note {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 32px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #8fc7a1;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(143,199,161,.6);
+    }
+
+    /* Portrait */
+
+    .portrait-area {
+      min-height: 530px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      perspective: 1000px;
+    }
+
+    .portrait-name {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      font-size: clamp(85px, 15vw, 190px);
+      font-weight: 900;
+      letter-spacing: -9px;
+      color: rgba(255,255,255,.045);
+      white-space: nowrap;
+      z-index: -1;
+      user-select: none;
+    }
+
+    .portrait-frame {
+      width: min(100%, 410px);
+      height: 470px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      border-radius: 48% 48% 24px 24px;
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(ellipse at 50% 40%, rgba(190,200,220,.17), transparent 65%),
+        linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.015));
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform .15s ease-out;
+      box-shadow: 0 30px 100px rgba(0,0,0,.35);
+    }
+
+    .portrait-frame::before {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: rgba(210,220,240,.10);
+      filter: blur(65px);
+      top: 70px;
+    }
+
+    .portrait-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: bottom center;
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 15px 30px rgba(0,0,0,.35));
+      transform: translateZ(35px);
+    }
+
+    .floating-tag {
+      position: absolute;
+      bottom: 45px;
+      right: -8px;
+      z-index: 3;
+      background: rgba(20,22,29,.85);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 16px;
+      backdrop-filter: blur(12px);
+      font-size: 11px;
+      color: var(--silver);
+    }
+
+    .floating-tag strong {
+      display: block;
+      color: white;
+      font-size: 14px;
+    }
+
+    /* General sections */
+
+    section { padding: 100px 0; }
+
+    .section-heading {
+      margin-bottom: 42px;
+    }
+
+    .section-kicker {
+      color: var(--silver);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(30px, 5vw, 48px);
+      letter-spacing: -1.5px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      max-width: 560px;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    /* About */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 20px;
+    }
+
+    .glass-card {
+      background: linear-gradient(145deg, rgba(255,255,255,.065), rgba(255,255,255,.018));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 30px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .about-text {
+      color: #b7bbc5;
+      font-size: 15px;
+      line-height: 2;
+    }
+
+    .about-text strong { color: white; }
+
+    .facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .fact {
+      padding: 18px;
+      background: rgba(255,255,255,.035);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+    }
+
+    .fact small {
+      color: var(--muted);
+      display: block;
+      font-size: 11px;
+      margin-bottom: 7px;
+    }
+
+    .fact strong { font-size: 15px; }
+
+    /* Skills */
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 16px;
+    }
+
+    .skill-card {
+      min-height: 210px;
+      transition: .3s;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(255,255,255,.28);
+    }
+
+    .skill-icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: rgba(255,255,255,.09);
+      font-size: 21px;
+      margin-bottom: 22px;
+    }
+
+    .skill-card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .skill-card p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .learning-label {
+      display: inline-block;
+      margin-top: 20px;
+      color: var(--silver);
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 5px 10px;
+    }
+
+    /* Projects */
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 18px;
+    }
+
+    .project-card {
+      overflow: hidden;
+      padding: 0;
+      transition: .3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255,255,255,.27);
+    }
+
+    .project-visual {
+      height: 190px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at center, rgba(190,200,220,.18), transparent 55%),
+        linear-gradient(135deg,#1b1e27,#0e1016);
+      border-bottom: 1px solid var(--line);
+      font-size: 54px;
+      color: #d7dce6;
+    }
+
+    .project-content { padding: 25px; }
+
+    .project-content h3 {
+      font-size: 19px;
+      margin-bottom: 8px;
+    }
+
+    .project-content p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .project-meta {
+      color: var(--silver);
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Interests */
+
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 14px;
+    }
+
+    .interest {
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.025);
+      border-radius: 17px;
+      color: #d9dce3;
+      font-size: 14px;
+      transition: .3s;
+    }
+
+    .interest:hover {
+      background: rgba(255,255,255,.07);
+      transform: translateY(-4px);
+    }
+
+    .interest span {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    /* Friend / personal section */
+
+    .moments-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 18px;
+    }
+
+    .moment-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .moment-card img {
+      width: 100%;
+      height: 300px;
+      display: block;
+      object-fit: cover;
+      transition: .5s;
+    }
+
+    .moment-card:hover img { transform: scale(1.04); }
+
+    .moment-caption {
+      padding: 15px 18px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* Contact */
+
+    .contact-box {
+      text-align: center;
+      padding: 55px 25px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(190,200,220,.13), transparent 60%),
+        rgba(255,255,255,.025);
+    }
+
+    .contact-box h2 {
+      font-size: clamp(30px,5vw,48px);
+      margin-bottom: 13px;
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 25px;
+      font-size: 14px;
+    }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 25px 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .footer a { color: var(--silver); }
+
+    /* Scroll animations */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: .12s; }
+    .delay-2 { transition-delay: .22s; }
+
+    /* Cursor glow */
+
+    .cursor-glow {
+      position: fixed;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      background: radial-gradient(circle, rgba(170,185,210,.07), transparent 70%);
+      transform: translate(-50%,-50%);
+    }
+
+    /* Responsive */
+
+    @media (max-width: 850px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 35px; }
+      .hero-copy { text-align: center; }
+      .hero-description { margin-left: auto; margin-right: auto; }
+      .hero-actions, .hero-note { justify-content: center; }
+      .portrait-area { min-height: 450px; }
+      .portrait-frame { height: 420px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .skills-grid, .interests-grid { grid-template-columns: repeat(2,1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .container { width: min(100% - 28px, var(--max)); }
+      .navbar { top: 8px; }
+      .nav-inner { width: calc(100% - 20px); }
+      .menu-btn { display: block; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 65px;
+        left: 10px;
+        right: 10px;
+        padding: 20px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 17px;
+        background: rgba(15,17,23,.97);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+      }
+
+      .nav-links.open { display: flex; }
+      .nav-links a { display: block; padding: 5px; }
+
+      .hero { padding-top: 125px; }
+      .hero h1 { letter-spacing: -2px; }
+      .hero-description { font-size: 14px; }
+      .portrait-area { min-height: 390px; }
+      .portrait-frame { height: 370px; width: 90%; }
+      .portrait-name { font-size: 90px; letter-spacing: -5px; }
+      .floating-tag { right: 0; bottom: 25px; }
+
+      section { padding: 72px 0; }
+      .glass-card { padding: 22px; }
+      .skills-grid, .projects-grid, .interests-grid, .moments-grid {
+        grid-template-columns: 1fr;
+      }
+      .moment-card img { height: 250px; }
+      .facts { gap: 8px; }
+      .fact { padding: 13px; }
+      .footer-inner { justify-content: center; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="noise"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
-<section class="hero" id="hero">
+  <!-- Navigation -->
+  <header class="navbar">
+    <nav class="nav-inner" aria-label="Main navigation">
+      <a href="#home" class="logo">A<span>.</span>W</a>
 
-<nav>
- <button onclick="openModal('about')">👤 About</button>
- <button onclick="openModal('skills')">💻 Skills</button>
- <button onclick="openModal('interests')">⚽ Interests</button>
- <button onclick="openModal('personal')">🎂 Age</button>
- <button onclick="openModal('friend')">👬 My Friend</button>
-</nav>
+      <button class="menu-btn" id="menuBtn"
+        aria-label="Open navigation menu"
+        aria-expanded="false">☰</button>
 
-<div class="big-name">AHMED</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#interests">Interests</a></li>
+        <li><a href="#contact" class="nav-cta">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<div class="photo-wrap" id="photo">
- <img src="https://i.ibb.co/WvX5m23F/21667-removebg-preview.png"
- alt="Ahmed Wael Fekry">
-</div>
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
 
-<div class="hero-info">
- <h1>AHMED WAEL FEKRY</h1>
- <p>COMPUTER SCIENCE STUDENT</p>
-</div>
+        <div class="hero-copy reveal">
+          <div class="eyebrow">Welcome to my digital space</div>
 
-<button class="motion-btn" id="motionBtn" onclick="enableMotion()">
- ✨ Activate 3D Motion
-</button>
+          <h1>
+            AHMED
+            <span>WAE L.</span>
+          </h1>
 
-</section>
+          <p class="hero-description">
+            I'm Ahmed Wael Fekry, a Computer Science student
+            passionate about technology, programming, and building
+            things that make a difference.
+            Currently learning C# and Backend Development.
+          </p>
 
-<section class="info">
- <h2>DISCOVER MY WORLD</h2>
- <p>Explore my personal information</p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">Explore my work ↗</a>
+            <a href="#about" class="btn btn-outline">More about me</a>
+          </div>
 
- <div class="cards">
-  <button class="card-btn" onclick="openModal('about')">
-   <span>👤</span>About Me
-  </button>
+          <div class="hero-note">
+            <span class="status-dot"></span>
+            Currently learning & building
+          </div>
+        </div>
 
-  <button class="card-btn" onclick="openModal('skills')">
-   <span>💻</span>My Skills
-  </button>
+        <div class="portrait-area reveal delay-1">
+          <div class="portrait-name" aria-hidden="true">AHMED</div>
 
-  <button class="card-btn" onclick="openModal('interests')">
-   <span>⚽</span>My Interests
-  </button>
+          <div class="portrait-frame" id="portraitFrame">
+            <img
+              src="https://i.ibb.co/WvX5m23F/21667-removebg-preview.png"
+              alt="Portrait of Ahmed Wael Fekry"
+              fetchpriority="high">
+          </div>
 
-  <button class="card-btn" onclick="openModal('personal')">
-   <span>🎂</span>Personal Info
-  </button>
+          <div class="floating-tag">
+            <strong>Ahmed Wael</strong>
+            Computer Science Student
+          </div>
+        </div>
 
-  <button class="card-btn" onclick="openModal('friend')" style="grid-column:1/-1">
-   <span>👬</span>My Best Friend
-  </button>
- </div>
-</section>
+      </div>
+    </section>
 
-<!-- ABOUT -->
-<div class="modal" id="about" onclick="outsideClose(event)">
- <div class="modal-content">
-  <button class="close" onclick="closeModal('about')">×</button>
-  <h2>👋 About Me</h2>
-  <p>My name is Ahmed Wael Fekry.</p>
-  <p>I'm a Computer Science student.</p>
-  <p>I love technology, programming and learning new things.</p>
-  <p>My dream is to become a professional Backend Developer.</p>
- </div>
-</div>
+    <!-- About -->
+    <section id="about">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="section-kicker">01 / About me</div>
+          <h2>A little about who I am.</h2>
+          <p>My journey in technology is just getting started.</p>
+        </div>
 
-<!-- SKILLS -->
-<div class="modal" id="skills" onclick="outsideClose(event)">
- <div class="modal-content">
-  <button class="close" onclick="closeModal('skills')">×</button>
-  <h2>💻 My Skills &amp; Goals</h2>
-  <p>⌨️ Learning C# programming</p>
-  <p>🗄️ Interested in databases</p>
-  <p>🌐 Interested in Backend Development</p>
-  <p>🚀 Building my programming knowledge step by step</p>
- </div>
-</div>
+        <div class="about-grid">
+          <div class="glass-card reveal">
+            <p class="about-text">
+              Hello! I'm <strong>Ahmed Wael Fekry</strong>.
+              I'm a Computer Science student who enjoys discovering
+              how software works and how ideas become real applications.
+              <br><br>
+              I'm currently focusing on <strong>C#</strong> and
+              <strong>Backend Development</strong>, improving my
+              programming fundamentals, and building my skills
+              step by step.
+              <br><br>
+              My goal is to become a skilled developer who can create
+              useful, reliable, and well-designed software.
+            </p>
+          </div>
 
-<!-- INTERESTS -->
-<div class="modal" id="interests" onclick="outsideClose(event)">
- <div class="modal-content">
-  <button class="close" onclick="closeModal('interests')">×</button>
-  <h2>⚽ My Interests</h2>
-  <p>💻 Programming &amp; Technology</p>
-  <p>⚽ Football</p>
-  <p>🎮 Gaming</p>
-  <p>🎯 Learning new skills</p>
- </div>
-</div>
+          <div class="glass-card facts reveal delay-1">
+            <div class="fact">
+              <small>Name</small>
+              <strong>Ahmed Wael</strong>
+            </div>
+            <div class="fact">
+              <small>Age</small>
+              <strong>18</strong>
+            </div>
+            <div class="fact">
+              <small>Field</small>
+              <strong>Computer Science</strong>
+            </div>
+            <div class="fact">
+              <small>Focus</small>
+              <strong>C# & Backend</strong>
+            </div>
+            <div class="fact">
+              <small>Current level</small>
+              <strong>Learning</strong>
+            </div>
+            <div class="fact">
+              <small>Mindset</small>
+              <strong>Keep improving</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<!-- PERSONAL -->
-<div class="modal" id="personal" onclick="outsideClose(event)">
- <div class="modal-content">
-  <button class="close" onclick="closeModal('personal')">×</button>
-  <h2>🎂 Personal Information</h2>
-  <p>👤 Ahmed Wael Fekry</p>
-  <p>🎂 18 Years Old</p>
-  <p>🎓 Computer Science Student</p>
-  <p>💻 Future Backend Developer</p>
- </div>
-</div>
+    <!-- Skills -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="section-kicker">02 / Skills</div>
+          <h2>What I'm learning.</h2>
+          <p>
+            These are the areas I'm currently studying and developing.
+            I'm focused on understanding the fundamentals first.
+          </p>
+        </div>
 
-<!-- MY FRIEND -->
-<div class="modal" id="friend" onclick="outsideClose(event)">
- <div class="modal-content">
-  <button class="close" onclick="closeModal('friend')">×</button>
+        <div class="skills-grid">
+          <article class="glass-card skill-card reveal">
+            <div class="skill-icon">⌨</div>
+            <h3>C# Programming</h3>
+            <p>
+              Learning programming fundamentals, object-oriented
+              programming, and problem solving.
+            </p>
+            <span class="learning-label">Currently learning</span>
+          </article>
 
-  <div style="font-size:30px;margin-bottom:10px">👬</div>
-  <h2>My Best Friend</h2>
+          <article class="glass-card skill-card reveal delay-1">
+            <div class="skill-icon">⚙</div>
+            <h3>Backend Development</h3>
+            <p>
+              Exploring server-side development, application logic,
+              and how websites work behind the scenes.
+            </p>
+            <span class="learning-label">Currently learning</span>
+          </article>
 
-  <div class="friend-gallery">
-   <img class="friend-img"
-    src="https://i.ibb.co/PZ5zYpjz/IMG-20261110-145549-075.jpg"
-    alt="My Friend - Photo 1">
+          <article class="glass-card skill-card reveal delay-2">
+            <div class="skill-icon">▤</div>
+            <h3>Databases</h3>
+            <p>
+              Building an understanding of data storage,
+              database concepts, and working with information.
+            </p>
+            <span class="learning-label">Learning path</span>
+          </article>
+        </div>
+      </div>
+    </section>
 
-   <img class="friend-img"
-    src="https://i.ibb.co/dwj4mwty/IMG-20261108-145720-318.jpg"
-    alt="My Friend - Photo 2">
-  </div>
+    <!-- Projects -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="section-kicker">03 / Projects</div>
+          <h2>Learning by building.</h2>
+          <p>
+            A space for my practical work and future projects.
+            I'll keep updating this section as I build more.
+          </p>
+        </div>
 
-  <h2>My Friend ❤️</h2>
-  <p>Good friends make life more beautiful.</p>
-  <p>الأصحاب الجدعان رزق، وأجمل حاجة إن يكون عندك صاحب تقدر تعتمد عليه ❤️</p>
- </div>
-</div>
+        <div class="projects-grid">
+          <article class="glass-card project-card reveal">
+            <div class="project-visual">◈</div>
+            <div class="project-content">
+              <div class="project-meta">Personal project · Frontend</div>
+              <h3>Personal Portfolio</h3>
+              <p>
+                This website: a personal space to introduce myself,
+                share my learning journey, and present my work.
+              </p>
+              <a
+                class="btn btn-outline"
+                href="https://github.com/shd29049-debug/Eng..Ahmed-"
+                target="_blank"
+                rel="noopener noreferrer">
+                View source code ↗
+              </a>
+            </div>
+          </article>
 
-<footer>
- © 2026 Ahmed Wael Fekry ❤️
-</footer>
+          <article class="glass-card project-card reveal delay-1">
+            <div class="project-visual">⌘</div>
+            <div class="project-content">
+              <div class="project-meta">C# · Practice</div>
+              <h3>C# Practice Projects</h3>
+              <p>
+                A growing collection of exercises and small applications
+                that I'll build while learning C#.
+              </p>
+              <span class="learning-label">Work in progress</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-<script>
-function openModal(id){
- document.querySelectorAll('.modal').forEach(m=>{
-  m.classList.remove('show');
- });
- document.getElementById(id).classList.add('show');
- document.body.style.overflow='hidden';
-}
+    <!-- Interests -->
+    <section id="interests">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="section-kicker">04 / Beyond coding</div>
+          <h2>Things I enjoy.</h2>
+          <p>Technology is a big part of my life, but not the only part.</p>
+        </div>
 
-function closeModal(id){
- document.getElementById(id).classList.remove('show');
- document.body.style.overflow='';
-}
+        <div class="interests-grid">
+          <div class="interest reveal">
+            <span>💻</span>
+            Programming & Technology
+          </div>
+          <div class="interest reveal delay-1">
+            <span>📚</span>
+            Learning New Things
+          </div>
+          <div class="interest reveal delay-2">
+            <span>⚽</span>
+            Football & Sports
+          </div>
+          <div class="interest reveal">
+            <span>🎮</span>
+            Gaming
+          </div>
+          <div class="interest reveal delay-1">
+            <span>🏋</span>
+            Fitness & Gym
+          </div>
+          <div class="interest reveal delay-2">
+            <span>🚀</span>
+            Personal Growth
+          </div>
+        </div>
+      </div>
+    </section>
 
-function outsideClose(event){
- if(event.target.classList.contains('modal')){
-  event.target.classList.remove('show');
-  document.body.style.overflow='';
- }
-}
+    <!-- Personal moments -->
+    <section id="moments">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="section-kicker">05 / Personal corner</div>
+          <h2>Some moments.</h2>
+          <p>A small personal corner outside my coding journey.</p>
+        </div>
 
-document.addEventListener('keydown',function(e){
- if(e.key==='Escape'){
-  document.querySelectorAll('.modal').forEach(m=>{
-   m.classList.remove('show');
-  });
-  document.body.style.overflow='';
- }
-});
+        <div class="moments-grid">
+          <article class="glass-card moment-card reveal">
+            <img
+              src="https://i.ibb.co/PZ5zYpjz/IMG-20261110-145549-075.jpg"
+              alt="Personal memory"
+              loading="lazy">
+            <div class="moment-caption">A memory worth keeping.</div>
+          </article>
 
-const photo=document.getElementById('photo');
-const hero=document.getElementById('hero');
+          <article class="glass-card moment-card reveal delay-1">
+            <img
+              src="https://i.ibb.co/dwj4mwty/IMG-20261108-145720-318.jpg"
+              alt="Personal memory"
+              loading="lazy">
+            <div class="moment-caption">Good times and good memories.</div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-hero.addEventListener('pointermove',function(e){
- if(e.pointerType==='touch')return;
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container">
+        <div class="glass-card contact-box reveal">
+          <div class="section-kicker">06 / Get in touch</div>
+          <h2>Let's connect.</h2>
+          <p>
+            Interested in technology, programming, or sharing ideas?
+            You can find me on GitHub and follow my learning journey.
+          </p>
 
- const x=e.clientX/window.innerWidth-.5;
- const y=e.clientY/window.innerHeight-.5;
+          <a
+            href="https://github.com/shd29049-debug"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary">
+            Visit my GitHub ↗
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
 
- photo.style.transform=
- `translate3d(${x*30}px,${y*25}px,35px)
- rotateY(${x*10}deg) rotateX(${-y*8}deg)`;
-});
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Ahmed Wael Fekry</span>
+      <span>Designed with focus. Built with passion.</span>
+      <a href="#home">Back to top ↑</a>
+    </div>
+  </footer>
 
-hero.addEventListener('pointerleave',function(){
- photo.style.transform='';
-});
+  <script>
+    "use strict";
 
-let motionEnabled=false;
+    // Mobile navigation
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
 
-async function enableMotion(){
- const btn=document.getElementById('motionBtn');
+    menuBtn.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", String(isOpen));
+      menuBtn.textContent = isOpen ? "✕" : "☰";
+    });
 
- if(!window.DeviceOrientationEvent){
-  btn.textContent='Motion not supported';
-  return;
- }
+    // Close menu after selecting a section
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+        menuBtn.textContent = "☰";
+      });
+    });
 
- try{
-  if(typeof DeviceOrientationEvent.requestPermission==='function'){
-   const permission=await DeviceOrientationEvent.requestPermission();
-   if(permission!=='granted'){
-    btn.textContent='Motion permission denied';
-    return;
-   }
-  }
+    // Reveal sections on scroll
+    const revealElements = document.querySelectorAll(".reveal");
 
-  if(motionEnabled)return;
-  motionEnabled=true;
-  btn.textContent='✨ 3D Motion Enabled';
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
 
-  window.addEventListener('deviceorientation',function(e){
-   if(e.gamma===null||e.beta===null)return;
+      revealElements.forEach(element => observer.observe(element));
+    } else {
+      revealElements.forEach(element => element.classList.add("visible"));
+    }
 
-   const x=Math.max(-20,Math.min(20,e.gamma));
-   const y=Math.max(-20,Math.min(20,e.beta-45));
+    // Subtle portrait 3D movement
+    const portrait = document.getElementById("portraitFrame");
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-   photo.style.transform=
-   `translate3d(${x*1.3}px,${-y*1.2}px,40px)
-   rotateY(${x/2}deg) rotateX(${y/3}deg)`;
-  });
+    if (!reducedMotion && window.matchMedia("(pointer: fine)").matches) {
+      portrait.addEventListener("pointermove", event => {
+        const rect = portrait.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
 
- }catch(error){
-  btn.textContent='Motion unavailable';
- }
-}
-</script>
+        portrait.style.transform =
+          `rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+      });
 
+      portrait.addEventListener("pointerleave", () => {
+        portrait.style.transform = "rotateY(0deg) rotateX(0deg)";
+      });
+    }
+
+    // Cursor glow on devices with a mouse
+    const cursorGlow = document.getElementById("cursorGlow");
+
+    if (!reducedMotion && window.matchMedia("(pointer: fine)").matches) {
+      window.addEventListener("pointermove", event => {
+        cursorGlow.style.left = event.clientX + "px";
+        cursorGlow.style.top = event.clientY + "px";
+      });
+    } else {
+      cursorGlow.style.display = "none";
+    }
+
+    // Current year
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
 </body>
 </html>
-
 
