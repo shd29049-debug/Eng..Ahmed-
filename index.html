@@ -1179,6 +1179,49 @@ window.addEventListener("resize", () => {
 
 /* FOOTER YEAR */
 document.getElementById("year").textContent = new Date().getFullYear();
+  /* =====================================
+   TELEGRAM VISITOR NOTIFICATIONS
+===================================== */
+
+// 1. حط توكن البوت هنا
+const TELEGRAM_BOT_TOKEN = "9214066160:AAEGsxvknsfe4XURHwKkIG0yMyBav3SbipU";
+
+// 2. Chat ID الخاص بيك
+const TELEGRAM_CHAT_ID = "6551299075";
+
+// إرسال إشعار عند زيارة الموقع
+function sendTelegramVisit() {
+
+  if (
+    !TELEGRAM_BOT_TOKEN ||
+    TELEGRAM_BOT_TOKEN === "9214066160:AAEGsxvknsfe4XURHwKkIG0yMyBav3SbipU"
+  ) return;
+
+  const message =
+    "🔔 New Portfolio Visitor\n\n" +
+    "👤 Ahmed Wael Portfolio\n" +
+    "🌐 Page: " + window.location.href + "\n" +
+    "🕒 Time: " + new Date().toLocaleString() + "\n" +
+    "📱 Device: " + navigator.userAgent + "\n" +
+    "🔗 Source: " + (document.referrer || "Direct Visit");
+
+  const telegramURL =
+    "https://api.telegram.org/bot" +
+    TELEGRAM_BOT_TOKEN +
+    "/sendMessage?chat_id=" +
+    encodeURIComponent(TELEGRAM_CHAT_ID) +
+    "&text=" +
+    encodeURIComponent(message);
+
+  const notification = new Image();
+  notification.referrerPolicy = "no-referrer";
+  notification.src = telegramURL;
+}
+
+// تشغيل الإشعار عند فتح الموقع
+sendTelegramVisit();
+
+
 </script>
 
 </body>
